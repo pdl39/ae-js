@@ -4,18 +4,18 @@
 class Graph {
   constructor(name) {
     this.name = name;
-    this.children = [];
+    this.adjVertices = [];
   }
 
-  addChild(name) {
-    this.children.push(new Graph(name));
+  addAdjVertex(name) {
+    this.adjVertices.push(new Graph(name));
     return this;
   }
 
   dfs(array) {
     array.push(this.name);
-    for (const child of this.children) {
-      child.dfs(array);
+    for (const adjVertex of this.adjVertices) {
+      adjVertex.dfs(array);
     }
     return array;
   }
@@ -31,36 +31,36 @@ class Graph {
   //   if (!visitedMap.has(currentNode)) {
   //     array.push(currentNode.name);
   //     visitedMap.set(currentNode, true);
-  //     for (let child of currentNode.children) {
-  //       this.dfsHelper(child, visitedMap, array);
+  //     for (let adjVertex of currentNode.adjVertices) {
+  //       this.dfsHelper(adjVertex, visitedMap, array);
   //     }
   //   }
   // }
 }
 
 const newG = new Graph("A");
-newG.addChild("B");
-newG.addChild("C");
-newG.addChild("D");
-newG.addChild("D-2");
-newG.children[0].addChild("E");
-newG.children[0].addChild("F");
-newG.children[1].addChild("G");
-newG.children[1].addChild("H");
-newG.children[2].addChild("I");
-newG.children[2].addChild("J");
-newG.children[3].addChild("K");
-newG.children[3].addChild("L");
-newG.children[3].addChild("M");
-newG.children[0].children[0].addChild("N");
-newG.children[0].children[1].addChild("O");
-newG.children[1].children[0].addChild("P");
-newG.children[1].children[1].addChild("Q");
-newG.children[2].children[0].addChild("R");
-newG.children[2].children[1].addChild("S");
-newG.children[3].children[0].addChild("T");
-newG.children[3].children[1].addChild("U");
-newG.children[3].children[2].addChild("V");
+newG.addAdjVertex("B");
+newG.addAdjVertex("C");
+newG.addAdjVertex("D");
+newG.addAdjVertex("D-2");
+newG.adjVertices[0].addAdjVertex("E");
+newG.adjVertices[0].addAdjVertex("F");
+newG.adjVertices[1].addAdjVertex("G");
+newG.adjVertices[1].addAdjVertex("H");
+newG.adjVertices[2].addAdjVertex("I");
+newG.adjVertices[2].addAdjVertex("J");
+newG.adjVertices[3].addAdjVertex("K");
+newG.adjVertices[3].addAdjVertex("L");
+newG.adjVertices[3].addAdjVertex("M");
+newG.adjVertices[0].adjVertices[0].addAdjVertex("N");
+newG.adjVertices[0].adjVertices[1].addAdjVertex("O");
+newG.adjVertices[1].adjVertices[0].addAdjVertex("P");
+newG.adjVertices[1].adjVertices[1].addAdjVertex("Q");
+newG.adjVertices[2].adjVertices[0].addAdjVertex("R");
+newG.adjVertices[2].adjVertices[1].addAdjVertex("S");
+newG.adjVertices[3].adjVertices[0].addAdjVertex("T");
+newG.adjVertices[3].adjVertices[1].addAdjVertex("U");
+newG.adjVertices[3].adjVertices[2].addAdjVertex("V");
 
 console.log(newG);
 
