@@ -1,3 +1,6 @@
+// DFS
+// T: O(v + e) | S: O(v), where v = # of vertices, e = # of edges in the graph.
+
 class Graph {
   constructor(name) {
     this.name = name;
@@ -10,21 +13,29 @@ class Graph {
   }
 
   dfs(array) {
-    let visited = new Map();
-    let currentNode = this;
-    this.dfsHelper(currentNode, visited, array);
+    array.push(this.name);
+    for (const child of this.children) {
+      child.dfs(array);
+    }
     return array;
   }
 
-  dfsHelper(currentNode, visitedMap, array) {
-    if (!visitedMap.has(currentNode)) {
-      array.push(currentNode.name);
-      visitedMap.set(currentNode, true);
-      for (let child of currentNode.children) {
-        this.dfsHelper(child, visitedMap, array);
-      }
-    }
-  }
+  // dfs(array) {
+  //   let visited = new Map();
+  //   let currentNode = this;
+  //   this.dfsHelper(currentNode, visited, array);
+  //   return array;
+  // }
+
+  // dfsHelper(currentNode, visitedMap, array) {
+  //   if (!visitedMap.has(currentNode)) {
+  //     array.push(currentNode.name);
+  //     visitedMap.set(currentNode, true);
+  //     for (let child of currentNode.children) {
+  //       this.dfsHelper(child, visitedMap, array);
+  //     }
+  //   }
+  // }
 }
 
 const newG = new Graph("A");
