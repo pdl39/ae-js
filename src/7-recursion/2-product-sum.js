@@ -1,7 +1,7 @@
 // 
 
 // T: O(n) | S: O(d)
-// where n = number of total integer elements, d = max depth of special arrays.
+// where n = number of total elements, including all sub elements, d = max depth of special arrays.
 
 function productSum(array, depth = 1) {
   let sum = 0;
