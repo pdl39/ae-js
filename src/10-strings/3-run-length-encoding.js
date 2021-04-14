@@ -6,7 +6,7 @@ function runLengthEncoding(string) {
   let count = 1;
 
   for (let i = 1; i < string.length + 1; i++) {
-    let currentChar = i === string.length ? null : string[i];
+    let currentChar = string[i];
     let prevChar = string[i - 1];
 
     if (count === 9 || currentChar !== prevChar) {
