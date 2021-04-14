@@ -26,6 +26,9 @@ function swapArrEl(array, idxA, idxB) {
   [array[idxA], array[idxB]] = [array[idxB], array[idxA]];
 }
 
+/***** TEST *****/
+console.log(bubbleSort([9, 8, 7, 6, 5, 4, 6, 4, 7, 3, 8, 3, 21, 12, 1, 0, 10, 84, 99, 1000, 1000, 1000, 1001]));
+console.log(bubbleSort([10, 10, 10, 10, 10, 10, 9, 8, 9, 8, 9, 8, 9, 1, 1, 2, 1, 2, 3, 4, 1, 1, 4, 4, 6, 0, 0, 1]));
 console.log(bubbleSort([1, 2, 3, 4, 5, 6, 7]));
 console.log(bubbleSort([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]));
 console.log(bubbleSort([1, 2, 3, 10, 3, 2, 5, 3, 11, 1901, 389, 944, 4, 5, 1000, 6, 799]));
