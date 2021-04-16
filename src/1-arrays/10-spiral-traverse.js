@@ -1,37 +1,40 @@
-// // Recursive
+// Recursive
+// T: O(n*m) | S: O(n*m)
+// where n = array length and m = nested array length
 
 
-// function spiralTraverseR(array) {
-//     const result = [];
+function spiralTraverse(array) {
+    const result = [];
 
-//     let startRow = 0;
-//     let endRow = array.length - 1;
-//     let startCol = 0;
-//     let endCol = array[0].length - 1;
+    let startRow = 0;
+    let endRow = array.length - 1;
+    let startCol = 0;
+    let endCol = array[0].length - 1;
 
-//     if (startRow <= endRow && startCol <= endCol) {
-//         spiralTraverseHelper(array, startRow + 1, endRow - 1, startCol + 1, endCol - 1, result);
-//     }
+    spiralTraverseHelper(array, startRow, endRow, startCol, endCol, result);
 
-//     return result;
-// }
+    return result;
+}
 
-// function spiralTraverseHelper(array, startRow, endRow, startCol, endCol, result) {
-//     for (let col = startCol; col <= endCol; col++) {
-//         result.push(array[startRow][col]);
-//     }
-//     for (let row = startRow + 1; row < endRow; row++) {
-//         result.push(array[row][endCol]);
-//     }
-//     for (let col = endCol; col >= startCol; col--) {
-//         if (startRow === endRow) break;
-//         result.push(array[endRow][col]);
-//     }
-//     for (let row = endRow - 1; row > startRow; row--) {
-//         if (startCol === endCol) break;
-//         result.push(array[row][startCol]);
-//     }
-// } 
+function spiralTraverseHelper(array, startRow, endRow, startCol, endCol, result) {
+    if (startRow <= endRow && startCol <= endCol) {
+        for (let col = startCol; col <= endCol; col++) {
+            result.push(array[startRow][col]);
+        }
+        for (let row = startRow + 1; row < endRow; row++) {
+            result.push(array[row][endCol]);
+        }
+        for (let col = endCol; col >= startCol; col--) {
+            if (startRow === endRow) break;
+            result.push(array[endRow][col]);
+        }
+        for (let row = endRow - 1; row > startRow; row--) {
+            if (startCol === endCol) break;
+            result.push(array[row][startCol]);
+        }
+        spiralTraverseHelper(array, startRow + 1, endRow - 1, startCol + 1, endCol - 1, result);
+    }
+} 
 
 
 // Iterative
