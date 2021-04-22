@@ -1,39 +1,51 @@
+// T: O(n) | S: O(1)
+// where n = array length
+
+function hasSingleCycle2(array) {
+  let currentIdx = 0;
+  let remainingCount = array.length;
+  while (remainingCount > 0) {
+    if (remainingCount < array.length && currentIdx === 0) return false;
+    currentIdx = getNextIdx(currentIdx, array);
+    remainingCount--;
+  }
+
+  return currentIdx === 0;
+}
+
+function getNextIdx(currentIdx, array) {
+  const jump = array[currentIdx];
+  const nextIdx = (currentIdx + jump) % array.length;
+  return nextIdx >= 0 ? nextIdx : array.length + nextIdx; 
+}
+
+
 // T: O(n) | S: O(n)
 // where n = array length
 
 function hasSingleCycle(array, startIdx = 0) {
   const graph = new Map();
-  let i = startIdx;
+  let currentIdx = startIdx;
   let count = array.length;
 
   while (count > 0) {
-    let pointingTo;
-  
-    if (array[i] > 0 && i + (array[i] % array.length) >= array.length) {
-      pointingTo = (array[i] % array.length) - (array.length - 1 - i) - 1;
-    }
-    else if (array[i] < 0 && i + (array[i] % array.length) < 0) {
-      pointingTo = array.length + ((array[i] % array.length) + i);
-    }
-    else {
-      pointingTo = i + (array[i] % array.length);
-    }
+    const jump = array[currentIdx];
+    let pointingTo = (currentIdx + jump) % array.length;
+    pointingTo = pointingTo >= 0 ? pointingTo : array.length + pointingTo;
 
-    if (!graph.has(pointingTo)) {
-      graph.set(pointingTo, 1);
-    }
-    else {
-      return false;
-    }
+    if (!graph.has(pointingTo)) graph.set(pointingTo, 1);
+    else return false;
 
-    i = pointingTo;
+    currentIdx = pointingTo;
     count--;
   }
-
-  console.log(graph);
 
   return true;
 }
 
-// console.log(generateGraph([2,3,1,-4,-4,2], 5));
-console.log(generateGraph([10, 11, -6, -23, -2, 3, 88, 908, -26], 0));
+console.log(hasSingleCycle([2,3,1,-4,-4,2]));
+console.log(hasSingleCycle2([2,3,1,-4,-4,2]));
+console.log(hasSingleCycle([2,3,1,-4,-4,1]));
+console.log(hasSingleCycle2([2,3,1,-4,-4,1]));
+console.log(hasSingleCycle([10, 11, -6, -23, -2, 3, 88, 908, -26], 0));
+console.log(hasSingleCycle2([10, 11, -6, -23, -2, 3, 88, 908, -26], 0));
