@@ -7,18 +7,18 @@ function mergeOverlappingIntervals(arr) {
   let currentStart = sortedArr[0][0];
   let currentEnd = sortedArr[0][1];
 
-  for (let i = 0; i < sortedArr.length - 1; i++) {
-    const overlap = sortedArr[i + 1][0] <= currentEnd;
+  for (let i = 1; i < sortedArr.length; i++) {
+    const overlap = sortedArr[i][0] <= currentEnd;
     if (!overlap) {
         result.push([currentStart, currentEnd]);
-        currentStart = sortedArr[i + 1][0];
-        currentEnd = sortedArr[i + 1][1];
+        currentStart = sortedArr[i][0];
+        currentEnd = sortedArr[i][1];
     }
     else {
-      currentEnd = Math.max(currentEnd, sortedArr[i + 1][1]);
+      currentEnd = Math.max(currentEnd, sortedArr[i][1]);
     }
 
-    if (i === sortedArr.length - 2) {
+    if (i === sortedArr.length - 1) {
       result.push([currentStart, currentEnd]);
     }
   }
