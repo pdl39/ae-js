@@ -5,11 +5,52 @@
 
 function numberOfWaysToTraverseGraph3(width, height) {
   const smallerSide = width < height ? width : height;
-  const biggerSide = width >= height ? widht : height;
+  const biggerSide = width >= height ? width : height;
 
-  //
-  const currentSide =
+  // If width is smaller, traverse horizontally (rows)
+  // If height is smaller, traverse vertically (columns)
+  let currentSide = new Array(smallerSide);
+  let prevSide = null;
 
+  for (let biggerSideIdx = 0; biggerSideIdx < biggerSide; biggerSideIdx++) {
+    prevSide = currentSide;
+    currentSide = new Array(smallerSide);
+
+    for (let smallerSideIdx = 0; smallerSideIdx < smallerSide; smallerSideIdx++) {
+      if (smallerSideIdx === 0 || biggerSideIdx === 0) {
+        currentSide[smallerSideIdx] = 1;
+      }
+      else {
+        const leftOrUpSlot1 = currentSide[smallerSideIdx - 1];
+        const leftOrUpSlot2 = prevSide[smallerSideIdx];
+        currentSide[smallerSideIdx] = leftOrUpSlot1 + leftOrUpSlot2;
+      }
+    }
+  }
+
+  return currentSide[currentSide.length - 1];
+
+  // Below is the version where we always traverse horizontally:
+  // let currRow = new Array(width).fill(1);
+  // let prevRow = null;
+
+  // for (let row = 1; row < height; row++) {
+  //   prevRow = currRow;
+  //   currRow = new Array(width);
+
+  //   for (let col = 0; col < width; col++) {
+  //     if (col === 0) {
+  //       currRow[col] = 1;
+  //     }
+  //     else {
+  //       const leftSlot = currRow[col - 1];
+  //       const upSlot = prevRow[col];
+  //       currRow[col] = leftSlot + upSlot;
+  //     }
+  //   }
+  // }
+
+  // return currRow[currRow.length - 1];
 }
 
 
