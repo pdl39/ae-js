@@ -1,3 +1,14 @@
+// Recursion
+// T: O(2^(w+h)) | S: O(w+h)
+// where w = width, h = height;
+// w+h is the max height of the recursion tree
+
+function numberOfWaysToTraverseGraph4(width, height) {
+  if (width === 1 || height === 1) return 1;
+  return numberOfWaysToTraverseGraph4(width - 1, height) + numberOfWaysToTraverseGraph4(width, height - 1);
+}
+
+
 // Use matrix (2-D array) and map get cummulative count for each slot (starting from source)
 // Optimized space complexity
 // T: O(w*h) | S: O(min(w, h));
@@ -150,3 +161,8 @@ console.log('numberOfWasToTraverGraph 3');
 console.log(numberOfWaysToTraverseGraph3(2, 3));
 console.log(numberOfWaysToTraverseGraph3(3, 4));
 console.log(numberOfWaysToTraverseGraph3(5, 6));
+
+console.log('numberOfWasToTraverGraph 4');
+console.log(numberOfWaysToTraverseGraph4(2, 3));
+console.log(numberOfWaysToTraverseGraph4(3, 4));
+console.log(numberOfWaysToTraverseGraph4(5, 6));
