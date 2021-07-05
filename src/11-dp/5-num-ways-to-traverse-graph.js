@@ -1,3 +1,25 @@
+// Recursion widh DP
+// T: O(w*h) | S: O(w+h)
+// where w = width, h = height;
+// w+h is the max height of the recursion tree
+
+function numberOfWaysToTraverseGraph5(width, height) {
+  const cache = {};
+  const currentKey = JSON.stringify([width, height]);
+  // retrieving memoized call from cache --> free work
+  if (cache[currentKey]) return cache[currentKey];
+
+  // non-memoized recusive call
+  if (width === 1 || height === 1) {
+    cache[currentKey] = 1;
+  }
+  else {
+    cache[currentKey] = numberOfWaysToTraverseGraph5(width - 1, height) + numberOfWaysToTraverseGraph5(width, height - 1);
+  }
+  return cache[currentKey];
+}
+
+
 // Recursion
 // T: O(2^(w+h)) | S: O(w+h)
 // where w = width, h = height;
@@ -166,3 +188,8 @@ console.log('numberOfWasToTraverGraph 4');
 console.log(numberOfWaysToTraverseGraph4(2, 3));
 console.log(numberOfWaysToTraverseGraph4(3, 4));
 console.log(numberOfWaysToTraverseGraph4(5, 6));
+
+console.log('numberOfWasToTraverGraph 5');
+console.log(numberOfWaysToTraverseGraph5(2, 3));
+console.log(numberOfWaysToTraverseGraph5(3, 4));
+console.log(numberOfWaysToTraverseGraph5(5, 6));
