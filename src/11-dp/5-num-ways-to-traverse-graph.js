@@ -1,3 +1,47 @@
+// Mathematical Trick - permutation logic
+// Most efficient solution
+// T: O(w+h) | S: O(1)
+// where w = width, h = height
+// factorial of (w+h) requires w+h multiplication operations
+
+function numberOfWaysToTraverseGraph6(width, height) {
+  // number of ways to go from (1, 1) to (width, height)
+  // = number of permutations for combining right and down movements from (1, 1) to reach (width, height)
+
+  // Total # of right movements = width - 1
+  // Total # of down movements = height - 1
+  // e.g. for (w = 3, h = 4), the max right movements you can make  = 2 and the max down movement you can make = 3
+  // a path from (1, 1) to (3, 4) can be:
+  // R -> R -> D -> D -> D
+  // We must find the number of permutations this path can take,
+  // e.g. R -> D -> R -> D -> D, D -> D -> R -> D -> R, etc.,
+  // which will give us the number of ways to reach our target.
+
+
+  // Base case: if either width or height === 1, there's only one way
+  if (width === 1 || height === 1) return 1;
+
+  // Using permutation
+  const maxRightMove = width - 1;
+  const maxDownMove = height - 1;
+
+  // Permutation formula:
+  const numerator = factorial(maxRightMove + maxDownMove);
+  const denominator = factorial(maxRightMove) * factorial(maxDownMove);
+  return Math.round(numerator / denominator);
+}
+
+function factorial(n) {
+  let k = 1;
+
+  for (let i = 2; i <= n; i++) {
+    k *= i;
+  }
+
+  return k;
+}
+
+
 // Recursion widh DP
 // T: O(w*h) | S: O(w+h)
 // where w = width, h = height;
@@ -193,3 +237,8 @@ console.log('numberOfWasToTraverGraph 5');
 console.log(numberOfWaysToTraverseGraph5(2, 3));
 console.log(numberOfWaysToTraverseGraph5(3, 4));
 console.log(numberOfWaysToTraverseGraph5(5, 6));
+
+console.log('numberOfWasToTraverGraph 6');
+console.log(numberOfWaysToTraverseGraph6(2, 3));
+console.log(numberOfWaysToTraverseGraph6(3, 4));
+console.log(numberOfWaysToTraverseGraph6(5, 6));
