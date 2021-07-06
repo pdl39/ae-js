@@ -1,8 +1,6 @@
-import Node from './_Node';
-
-export default class TreeNode extends Node {
+export default class TreeNode {
   constructor(val) {
-    super(val);
+    this.value = val;
     this.children = [];
   }
 
