@@ -1,4 +1,4 @@
-export default class TreeNode {
+module.exports = class TreeNode {
   constructor(val) {
     this.value = val;
     this.children = [];
