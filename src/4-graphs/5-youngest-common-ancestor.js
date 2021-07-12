@@ -1,5 +1,5 @@
-// T: O() | S: O()
-// where
+// T: O(d) | S: O(1)
+// where d = tree depth
 
 class AncestralTree {
   constructor(name) {
