@@ -6,10 +6,7 @@ const River = require("../../data-structure/GraphNode");
 
 function riverSizes(matrix) {
   const riverSizesArr = [];
-  const visited = new Array(matrix.length);
-  for (let i = 0; i < visited.length; i++) {
-    visited[i] = new Array(matrix[0].length).fill(false);
-  }
+  const visited = matrix.map(row => row.map(value => false));
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[0].length; j++) {
@@ -71,7 +68,7 @@ function getNonZeroEdges(currentNode, matrix) {
 // - else, recurse through its edges, if edge is not seen and is 1. add edges to the seen map.
 //   --> each recursive call takes 1 work + max 4 recursive calls for each edge
 
-// max w*h space needed for the seen map (and for rivers array).
+// max w*h space needed for the seen map.
 
 
 function riverSizes1(matrix) {
