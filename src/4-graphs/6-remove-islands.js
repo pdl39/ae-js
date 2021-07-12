@@ -1,7 +1,63 @@
+// Finding non-islands that begin from the matrix boundary and replace them with 2.
+// Then, replace 1s with 0 and 2s back to 1 and return the matrix.
 // T: O(w*h) | S: O(w*h)
 // where w = matrix width, h = matrix height
 
 function removeIslands(matrix) {
+  const visited = matrix.map(row => row.map(value => false));
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (isMatrixBoundary(i, j, matrix) && matrix[i][j] === 1) {
+        findNonIsland(i, j, matrix, visited);
+      }
+    }
+  }
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (matrix[i][j] === 1) {
+        matrix[i][j] = 0;
+      }
+      if (matrix[i][j] === 2) {
+        matrix[i][j] = 1;
+      }
+    }
+  }
+
+  return matrix;
+}
+
+function findNonIsland(i, j, matrix, visited) {
+  const nodesToExplore = [[i, j]];
+
+  while (nodesToExplore.length) {
+    const currentNode = nodesToExplore.pop();
+    const i = currentNode[0];
+    const j = currentNode[1];
+
+    visited[i][j] = true;
+    matrix[i][j] = 2;
+
+    const edges = getNonZeroEdges(i, j, matrix);
+    edges.forEach(edge => {
+      const i = edge[0];
+      const j = edge[1];
+
+      if (!visited[i][j]) {
+        nodesToExplore.push(edge);
+        visited[i][j] = true;
+      }
+    });
+  }
+}
+
+
+
+// T: O(w*h) | S: O(w*h)
+// where w = matrix width, h = matrix height
+
+function removeIslands1(matrix) {
   const islands = [];
   const visited = matrix.map(row => row.map(value => false));
 
@@ -33,9 +89,6 @@ function getIsland(i, j, matrix, visited, islands) {
 
     visited[i][j] = true;
     newIsland.push(currentNode);
-
-    console.log({currentNode})
-    console.log({nodesToExplore})
 
     const edges = getNonZeroEdges(i, j, matrix);
     edges.forEach(edge => {
@@ -98,6 +151,9 @@ const matrix2 = [
   [1, 0, 1, 1, 0, 0],
   [1, 0, 0, 0, 0, 1]
 ]
+
+console.log(removeIslands1(matrix1));
+console.log(removeIslands1(matrix2));
 
 console.log(removeIslands(matrix1));
 console.log(removeIslands(matrix2));
