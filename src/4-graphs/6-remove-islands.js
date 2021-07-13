@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Finding non-islands that begin from the matrix boundary and replace them with 2.
 // Then, replace 1s with 0 and 2s back to 1 and return the matrix.
 // T: O(w*h) | S: O(w*h)
