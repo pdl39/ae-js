@@ -62,6 +62,6 @@ const edges3 = [
   []
 ]
 
-// console.log(cycleInGraph(edges1));
+console.log(cycleInGraph(edges1));
 console.log(cycleInGraph(edges2));
-// console.log(cycleInGraph(edges3));
+console.log(cycleInGraph(edges3));
