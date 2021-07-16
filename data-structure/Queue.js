@@ -1,3 +1,5 @@
+const Node = require('./_Node');
+
 module.exports = class Queue {
   constructor() {
     this.first = null;
@@ -6,7 +8,8 @@ module.exports = class Queue {
     this.length = 0;
   }
 
-  enque(node) {
+  enque(value) {
+    const node = new Node(value);
     if (this.length === 0) {
       this.first = node;
       this.last = this.first;
