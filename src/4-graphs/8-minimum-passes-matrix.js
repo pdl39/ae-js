@@ -5,22 +5,22 @@ const Queue = require('../../data-structure/Queue');
 // where w = matrix width, h = matrix height
 
 function minimumPassesOfMatrix(matrix) {
-  let passCount = 0;
-  const visited = matrix.map(row => row.map(value => false));
+  const allPositiveSlots = [];
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[0].length; j++) {
       if (matrix[i][j] > 0) {
-        const currentPassCount = bfsTraverse(i, j, matrix, visited);
-        passCount = Math.max(passCount, currentPassCount);
+        allPositiveSlots.push([i, j]);
       }
     }
   }
 
+  let passCount = bfsTraverse(matrix, allPositiveSlots);
+
   // one more iteration to check if any non-converted negatives remain
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[0].length; j++) {
-      if (matrix[i][j] < 0 && !visited[i][j]) {
+      if (matrix[i][j] < 0) {
         return -1;
       }
     }
@@ -29,39 +29,41 @@ function minimumPassesOfMatrix(matrix) {
   return passCount;
 }
 
-function bfsTraverse(i, j, matrix, visited) {
+function bfsTraverse(matrix, allPositiveSlots) {
+  if (!allPositiveSlots.length) return;
+
   let currentLevelCount = 0;
   const bfsQ = new Queue();
-  bfsQ.enque([i, j]);
+  for (const positiveSlot of allPositiveSlots) {
+    const [i, j] = positiveSlot;
+    bfsQ.enque([i, j]);
+  }
 
   while (!bfsQ.isEmpty()) {
     const bfsQLen = bfsQ.length;
-    console.log({bfsQLen})
 
     for (let n = 0; n < bfsQLen; n++) {
       const currentSlot = bfsQ.dequeue().value;
-      console.log({currentSlot});
-      const i = currentSlot[0];
-      const j = currentSlot[1];
-      const unvisitedNegNeighbors = getUnvisitedNegNeighbors(i, j, matrix, visited);
+      const [i, j] = currentSlot;
+      const negNeighbors = getNegNeighbors(i, j, matrix);
 
-      for (const neighbor of unvisitedNegNeighbors) {
-        bfsQ.enque(neighbor);
-        visited[neighbor[0]][neighbor[1]] = true;
+      for (const neighbor of negNeighbors) {
+        const [y, x] = neighbor;
+        matrix[y][x] *= -1;
+        bfsQ.enque([y, x]);
       }
     }
     currentLevelCount++;
-    console.log({currentLevelCount})
   }
 
   return currentLevelCount - 1;
 }
 
-function getUnvisitedNegNeighbors(i, j, matrix, visited) {
-  let left = matrix[i][j - 1] < 0 && !visited[i][j - 1] ? [i, j - 1] : null;
-  let right = matrix[i][j + 1] < 0 && !visited[i][j + 1] ? [i, j + 1] : null;
-  let up = matrix[i - 1] && matrix[i - 1][j] < 0 && !visited[i - 1][j] ? [i - 1, j] : null;
-  let down = matrix[i + 1] && matrix[i + 1][j] < 0 && !visited[i + 1][j] ? [i + 1, j] : null;
+function getNegNeighbors(i, j, matrix) {
+  let left = matrix[i][j - 1] < 0 ? [i, j - 1] : null;
+  let right = matrix[i][j + 1] < 0 ? [i, j + 1] : null;
+  let up = matrix[i - 1] && matrix[i - 1][j] < 0 ? [i - 1, j] : null;
+  let down = matrix[i + 1] && matrix[i + 1][j] < 0 ? [i + 1, j] : null;
   return [left, right, up, down].filter(neighbor => neighbor !== null);
 }
 
